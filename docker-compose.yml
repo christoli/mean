@@ -3,28 +3,21 @@ version: '3.2' # specify docker-compose version
 # Define the services/ containers to be run
 services:
   angular: # name of the first service
-    build: # specify the directory of the Dockerfile
-      context: .
-      dockerfile: Dockerfile-front
+    image: node
     ports:
       - "4200:4200" # specify port mapping
     volumes:
       - ${PWD}:/app
-    command:
-      - npm install
-      - npm start
+    command: /bin/sh -c "cd /app && npm install && npm start"
  
   express: # name of the second service
-    build: # specify the directory of the Dockerfile
-      context: .
-      dockerfile: Dockerfile-back
+    image: node
     ports:
       - "3000:3000" #specify ports mapping
     volumes:
       - ${PWD}:/app
-    command:
-      - npm install
-      - npm start
+    command:  /bin/sh -c "cd /app && npm install && npm start"
+
     links:
       - database # link this service to the database service
  
